@@ -20,14 +20,14 @@ function Test-Connection-t {
 }
 
 function Start-Timer {
-  
   param (
-    [int]$Minutes
+    [int]$Minutes,
+    [string]$Description
   )
 
   $TaskName = [string](Get-Date -format 'HH-mm-ss-dddd')
   $time = (Get-Date).AddMinutes($Minutes)
-  $argument = "-Command Write-Output 'Timer up!' | Out-GridView; Read-Host 'Enter to close gui'"
+  $argument = "-Command Write-Output 'Timer up! ; $Description ; $Minutes' | Out-GridView; Read-Host 'Enter to close gui'"
 
   $t1 = New-ScheduledTaskTrigger -Once -At $time
   $action = New-ScheduledTaskAction -Execute "powershell.exe" -Argument $argument
