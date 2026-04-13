@@ -19,6 +19,7 @@ function Test-Connection-t {
   }
 }
 
+
 function Start-Timer {
   <#
   .DESCRIPTION
