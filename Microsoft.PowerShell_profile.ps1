@@ -20,6 +20,11 @@ function Test-Connection-t {
 }
 
 function Start-Timer {
+  <#
+  .DESCRIPTION
+    Requires ScheduledTasks module, Microsoft.PowerShell.Utility Module
+  #>
+
   param (
     [int]$Minutes,
     [string]$Description
