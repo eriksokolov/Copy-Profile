@@ -1,3 +1,13 @@
+function Read-Me {
+  <#
+  .DESCRIPTION
+    This is my Powershell profile. It customizes my environment and adds session-specific elements to every PowerShell session that I start.
+  #>
+  
+  (Get-Help Read-Me).Description
+}
+
+
 $PrintPDF = 'Microsoft Print to PDF'
 
 
