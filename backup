@@ -50,25 +50,18 @@ function Get-Word {
   $csv = ConvertFrom-csv $invokecsv -Delimiter ","
   $i = 0
   $csvcounter = $csv | 
-    Foreach-Object {
-      $i++
-    }
-
-  $randomRow = $csv | 
-    Select-Object -index (Get-random -Maximum $i -minimum 0)
+  Foreach-Object {
+    $i++
+  }
+  $randomRow = $csv | Select-Object -index (Get-random -Maximum $i -minimum 0)
   $randomRowClone = $randomRow
-  $serbian = $randomRowClone | 
-    Select-Object "serbian"
-  $serbian | 
-    Format-Table -AutoSize
+  $serbian = $randomRowClone | Select-Object "serbian"
+  $serbian| Format-Table -AutoSize
 
   $blank = Read-Host
 
-  $russian = $randomRowClone |
-    Select-Object "russian"
-  $russian |
-    Format-Table -AutoSize
+  $russian = $randomRowClone | Select-Object "russian"
+  $russian | Format-Table -AutoSize
   Read-Host
   cls
 }
-
