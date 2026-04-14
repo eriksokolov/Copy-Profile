@@ -42,3 +42,26 @@ function Start-Timer {
 
   Register-ScheduledTask -Taskname $TaskName -InputObject $task
 }
+
+
+function Get-Word {
+  $csvUrl = "https://raw.githubusercontent.com/eriksokolov/csv/main/serbianwords.csv"
+  $invokecsv = Invoke-RestMethod $csvUrl
+  $csv = ConvertFrom-csv $invokecsv -Delimiter ","
+  $i = 0
+  $csvcounter = $csv | 
+  Foreach-Object {
+    $i++
+  }
+  $randomRow = $csv | Select-Object -index (Get-random -Maximum $i -minimum 0)
+  $randomRowClone = $randomRow
+  $serbian = $randomRowClone | Select-Object "serbian"
+  $serbian| Format-Table -AutoSize
+
+  $blank = Read-Host
+
+  $russian = $randomRowClone | Select-Object "russian"
+  $russian | Format-Table -AutoSize
+  Read-Host
+  cls
+}
