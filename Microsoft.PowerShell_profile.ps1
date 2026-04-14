@@ -11,7 +11,7 @@ function Read-Me {
 $PrintPDF = 'Microsoft Print to PDF'
 
 
-function Upload-Git 
+function Write-Git 
 {
   git add -A
   git commit -m (Get-Date)
