@@ -82,3 +82,62 @@ function Get-Word {
   cls
 }
 
+
+function Merge-ADUserlists{
+  param (
+    [string]$client,
+    [string]$month,
+    [string]$year,
+    [int]$modify
+  )
+
+  $z = 1;
+
+  ls |
+  Where-Object {
+   $_.Name -match ".csv"
+  } |
+  Foreach-Object {
+   $z++
+  };
+
+  $i = 1;
+  $filename = "{0}_AD_Userliste_{1}_{2}" -f $client, $month, $year;
+
+  if ($modify -eq 0) {
+    while ( $i -lt $z ) {
+      $data = ".\temp{0}.csv" -f $i
+
+      Get-content $data|
+      Add-content .\$filename
+      $i++
+    }
+  } 
+  elseif ($modify -eq 1) {
+    while ($i -lt $z) {
+      $data = ".\temp{0}.csv" -f $i
+      $olddata = Get-content $data 
+      $newdata = $olddata |
+      Where-Object { 
+        $_ -cnotmatch "Typ,Beschreibung"
+      }
+      $newdata | 
+      Add-Content $filename
+      $i++
+    }
+  }
+  elseif ($modify -eq 2) {
+    while ($i -lt $z) {
+      $data = ".\temp{0}.csv" -f $i
+      $olddata = Get-content $data 
+      $newdata = $olddata |
+      Where-Object { 
+        $_ -cnotmatch "Typ,Beschreibung|Test|test"
+      }
+      $newdata |
+      Add-Content $filename
+      $i++
+    }
+  }
+}
+
