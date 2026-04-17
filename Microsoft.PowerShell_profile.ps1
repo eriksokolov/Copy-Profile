@@ -141,3 +141,27 @@ function Merge-ADUserlists{
   }
 }
 
+
+$NixConfig = @' 
+{ config, lib, pkgs, ... }:
+{
+  imports =
+    [ 
+      ./hardware-configuration.nix
+    ];
+  boot.loader.systemd-boot.enable = true;
+  boot.loader.efi.canTouchEfiVariables = true;
+  services.xserver.enable = true;
+  services.xserver.desktopManager.gnome.enable = true;
+  services.xserver.displayManager.gdm.enable = true;
+  environment.systemPackages = with pkgs; [
+    vim 
+    wget
+    neovim
+    powershell
+    git
+  ];
+  system.stateVersion = "25.05";
+  users.defaultUserShell = pkgs.powershell;
+}
+'@
